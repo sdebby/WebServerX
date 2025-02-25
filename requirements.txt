@@ -1,0 +1,4 @@
+flask>=2.0.0
+werkzeug>=2.0.0
+pyOpenSSL>=20.0.0
+cryptography>=3.4.7
