@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+    <title>File Server</title>
+    <style>
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/static/fonts/Poppins-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Poppins';
+            src: url('/static/fonts/Poppins-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2d3748;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+        }
+        .files-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .file-item:hover {
+            background-color: #f7fafc;
+            transform: translateX(5px);
+        }
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        .file-name {
+            color: #4a5568;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .file-icon {
+            color: #667eea;
+            font-size: 20px;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        .logout {
+            display: inline-block;
+            text-align: center;
+            margin-top: 30px;
+            color: #718096;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .logout:hover {
+            color: #667eea;
+            background-color: #f7fafc;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .welcome-text {
+            font-size: 14px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h2>Debby File Server</h2>
+                <p class="welcome-text">Select a file to download</p>
+            </div>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </div>
+        <ul class="files-list">
+            {% for filename in files %}
+                <li class="file-item">
+                    <span class="file-name">
+                        <span class="file-icon">📄</span>
+                        {{ filename }}
+                    </span>
+                    <form method="get" action="https://{{ request.host }}/files/{{ filename }}" style="margin: 0;">
+                        <button type="submit" class="download-btn">Download</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
